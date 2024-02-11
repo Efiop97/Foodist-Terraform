@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: git@github.com:Efiop97/Foodist-GitOps.git
+    repoURL: git@github.com:Efiop97/FoodistGitOps.git
     targetRevision: HEAD
     path: "."
   destination:
