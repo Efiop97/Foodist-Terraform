@@ -14,7 +14,7 @@ resource "helm_release" "argocd" {
 }
 
 resource "kubectl_manifest" "main_cd" {
-  depends_on = [helm_release.argocd, kubernetes_secret.foodist_gitops_repo_cred]
+  depends_on = [helm_release.argocd, kubernetes_secret.foodist_gitops_repo_cred, kubernetes_secret.foodist_secret]
 
   yaml_body = file(var.main_cd_path)
 }
