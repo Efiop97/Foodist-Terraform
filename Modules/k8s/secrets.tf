@@ -10,7 +10,7 @@ data "aws_secretsmanager_secret" "foodist_db_cred_secret" {
   arn = "arn:aws:secretsmanager:us-east-1:644435390668:secret:FoodistDB-CRED-85Bq0w"
 }
 
-data "aws_secretsmanager_secret_version" "foodist_gitops_repo_cred_current" {
+data "aws_secretsmanager_secret_version" "foodist_db_current" {
   secret_id = data.aws_secretsmanager_secret.foodist_db_cred_secret.id
 }
 
@@ -28,7 +28,7 @@ resource "kubernetes_secret" "foodist_gitops_repo_cred" {
   data = {
     name          = "foodist-gitops-repo-cred"
     type          = "git"
-    url           = "git@github.com:Efiop97/FoodisGitOps.git"
+    url           = var.repo_url
     sshPrivateKey = data.aws_secretsmanager_secret_version.foodist_gitops_repo_cred_current.secret_string
   }
 }
@@ -49,8 +49,8 @@ resource "kubernetes_secret" "foodist_secret" {
   }
 
   data = {
-    postgres-user-password  = jsondecode(data.aws_secretsmanager_secret_version.foodist_gitops_repo_cred_current.secret_string)["postgres-user-password"]
-    postgres-admin-password = jsondecode(data.aws_secretsmanager_secret_version.foodist_gitops_repo_cred_current.secret_string)["postgres-admin-password"]
-    postgres-repl-password  = jsondecode(data.aws_secretsmanager_secret_version.foodist_gitops_repo_cred_current.secret_string)["postgres-repl-password"]
+    "postgres-user-password"  = jsondecode(data.aws_secretsmanager_secret_version.foodist_db_current.secret_string)["postgres_user_password"]
+    "postgres-admin-password" = ""
+    "postgres-repl-password"  = ""
   }
 }

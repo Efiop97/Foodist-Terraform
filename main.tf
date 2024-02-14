@@ -1,12 +1,10 @@
 module "network" {
 
-  source = "./Modules/network"
-
-  availability_Zones = var.availability_Zones
-  all_Traffic        = var.all_Traffic
-  subnet_cidr        = var.subnet_cidr
-  Subnet_Count       = var.Subnet_Count
-  vpc_cidr           = var.vpc_cidr
+  source       = "./Modules/network"
+  all_Traffic  = var.all_Traffic
+  cidr_offset  = var.cidr_offset
+  Subnet_Count = var.Subnet_Count
+  vpc_cidr     = var.vpc_cidr
   public_subnet_tags = {
     "kubernetese.io/role/alb" = 1
   }
@@ -40,6 +38,7 @@ module "k8s" {
 
   count = var.apply_k8s_module ? 1 : 0
 
+  repo_url     = var.repo_url
   values_path  = "${path.module}/manifests/argocd.yaml"
   main_cd_path = "${path.module}/manifests/Main-cd.yaml"
 

@@ -7,10 +7,6 @@ variable "common_tags" {
 }
 
 #Network
-variable "availability_Zones" {
-  description = "availability zones"
-  type        = list(any)
-}
 
 variable "all_Traffic" {
   description = "Allow all traffic from the internet"
@@ -32,7 +28,11 @@ variable "subnet_cidr" {
 variable "vpc_cidr" {
   description = "cidr block of the vpc"
   type        = string
-  default     = "10.0.0.0/16"
+}
+
+variable "cidr_offset" {
+  description = "offest for subnet mask"
+  type = number
 }
 
 variable "public_subnet_tags" {

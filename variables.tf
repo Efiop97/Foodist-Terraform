@@ -9,10 +9,6 @@ variable "common_tags" {
 
 
 #Network
-variable "availability_Zones" {
-  description = "availability zones"
-  type        = list(any)
-}
 
 variable "all_Traffic" {
   description = "Allow all traffic from the internet"
@@ -25,16 +21,15 @@ variable "Subnet_Count" {
   default     = 2
 }
 
-variable "subnet_cidr" {
-  description = "subnet cidr block"
-  type        = list(any)
-  default     = ["10.0.0.0/19", "10.0.32.0/19"]
-}
 
 variable "vpc_cidr" {
   description = "cidr block of the vpc"
   type        = string
-  default     = "10.0.0.0/16"
+}
+
+variable "cidr_offset" {
+  description = "offest for subnet mask"
+  type = number
 }
 
 variable "public_subnet_tags" {
@@ -103,3 +98,8 @@ variable apply_k8s_module {
   description = "Conditionally apply K8s in the cluster"
 }
 
+
+variable "repo_url" {
+  description = "GitOps repo url"
+  type = string
+}

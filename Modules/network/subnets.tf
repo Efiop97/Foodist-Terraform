@@ -1,8 +1,12 @@
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 resource "aws_subnet" "subnet" {
   count                   = var.Subnet_Count
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.subnet_cidr[count.index]
-  availability_zone       = var.availability_Zones[count.index]
+  cidr_block              = cidrsubnet(var.vpc_cidr, var.cidr_offset, count.index)
+  availability_zone       = element(data.aws_availability_zones.available.names, count.index % length(data.aws_availability_zones.available.names))
   map_public_ip_on_launch = true
   tags = {
     Name = "Igor-EKS-subnet"
