@@ -3,7 +3,7 @@ resource "aws_vpc" "main" {
   instance_tenancy = "default"
 
   tags = {
-    Name = "Igor-EKS-VPC"
+    Name = "${var.project_name}-EKS-VPC"
   }
 }
 

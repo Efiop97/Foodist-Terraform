@@ -61,3 +61,8 @@ variable "node_key_name" {
   # You can set a default value or leave it without and provide the value at runtime or through a tfvars file.
   default     = "Igor-rsa-key"
 }
+
+variable "project_name" {
+  description = "name of the project"
+  type = string
+}

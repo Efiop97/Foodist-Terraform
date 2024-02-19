@@ -1,5 +1,5 @@
 resource "aws_eks_cluster" "cluster" {
-  name     = "igor-cluster"
+  name     = "${var.project_name}-cluster"
   role_arn = var.eks_cluster_role_arn
 
   vpc_config {
@@ -9,7 +9,7 @@ resource "aws_eks_cluster" "cluster" {
 
 resource "aws_eks_node_group" "node_group" {
   cluster_name    = aws_eks_cluster.cluster.name
-  node_group_name = "igor-node-group"
+  node_group_name = "${var.project_name}-node-group"
   node_role_arn   = var.eks_node_role_arn
   subnet_ids      = var.subnets
 
@@ -28,7 +28,7 @@ resource "aws_eks_node_group" "node_group" {
   }
 
   tags = {
-    "Name" = "IgorNodes"
+    "Name" = "${var.project_name}-Nodes"
   }
 }
 

@@ -51,3 +51,7 @@ variable "private_subnet_tags" {
   }
 }
 
+variable "project_name" {
+  description = "name of the project"
+  type = string
+}

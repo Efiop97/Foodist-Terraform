@@ -103,3 +103,18 @@ variable "repo_url" {
   description = "GitOps repo url"
   type = string
 }
+
+variable "project_name" {
+  description = "name of the project"
+  type = string
+}
+
+variable "gitops_secret" {
+  description = "name of the gitops secret"
+  type = string
+}
+
+variable "db_secret" {
+  description = "name of the gitops secret"
+  type = string
+}

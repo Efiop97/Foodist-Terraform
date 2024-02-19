@@ -4,9 +4,7 @@ resource "helm_release" "argocd" {
   create_namespace = true
   wait             = true
 
-  repository = "https://argoproj.github.io/argo-helm"
-  chart      = "argo-cd"
-  version    = "5.52.1"
+  chart      = var.chart_path
   
   values = [
     "${file(var.values_path)}"
@@ -14,7 +12,7 @@ resource "helm_release" "argocd" {
 }
 
 resource "kubectl_manifest" "main_cd" {
-  depends_on = [helm_release.argocd, kubernetes_secret.foodist_gitops_repo_cred, kubernetes_secret.foodist_secret]
+  depends_on = [helm_release.argocd, kubernetes_secret.gitops_repo_cred, kubernetes_secret.foodist_secret]
 
   yaml_body = file(var.main_cd_path)
 }

@@ -5,6 +5,7 @@ module "network" {
   cidr_offset  = var.cidr_offset
   Subnet_Count = var.Subnet_Count
   vpc_cidr     = var.vpc_cidr
+  project_name = var.project_name
   public_subnet_tags = {
     "kubernetese.io/role/alb" = 1
   }
@@ -29,6 +30,7 @@ module "eks" {
   node_group_desired_size  = var.node_group_desired_size
   node_group_max_size      = var.node_group_max_size
   node_group_min_size      = var.node_group_min_size
+  project_name             = var.project_name
   subnets                  = module.network.subnets
 }
 
@@ -38,8 +40,13 @@ module "k8s" {
 
   count = var.apply_k8s_module ? 1 : 0
 
-  repo_url     = var.repo_url
-  values_path  = "${path.module}/manifests/argocd.yaml"
-  main_cd_path = "${path.module}/manifests/Main-cd.yaml"
+  chart_path    = "${path.module}/charts/argo-cd-5.52.1.tgz"
+  repo_url      = var.repo_url
+  values_path   = "${path.module}/manifests/argocd.yaml"
+  main_cd_path  = "${path.module}/manifests/Main-cd.yaml"
+  project_name  = var.project_name
+  gitops_secret = var.gitops_secret
+  db_secret     = var.db_secret
+
 
 }

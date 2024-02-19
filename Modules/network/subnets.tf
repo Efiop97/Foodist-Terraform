@@ -9,7 +9,7 @@ resource "aws_subnet" "subnet" {
   availability_zone       = element(data.aws_availability_zones.available.names, count.index % length(data.aws_availability_zones.available.names))
   map_public_ip_on_launch = true
   tags = {
-    Name = "Igor-EKS-subnet"
+    Name = "${var.project_name}-EKS-subnet"
   }
 }
 
@@ -31,7 +31,7 @@ resource "aws_route_table" "rt" {
   }
 
   tags = {
-    Name = "igor-EKS-rt"
+    Name = "${var.project_name}-EKS-rt"
   }
 }
 

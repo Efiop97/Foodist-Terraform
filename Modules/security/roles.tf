@@ -35,25 +35,6 @@ resource "aws_iam_role" "eks_node_role" {
       }
     ]
   })
-
-  inline_policy {
-    name = "igor-eks-node-ecr-policy"
-    policy = jsonencode({
-      Version = "2012-10-17",
-      Statement = [
-        {
-          Effect = "Allow",
-          Action = [
-            "ecr:BatchCheckLayerAvailability",
-            "ecr:BatchGetImage",
-            "ecr:GetDownloadUrlForLayer",
-            "ecr:GetAuthorizationToken"
-          ],
-          Resource = "*"
-        }
-      ]
-    })
-  }
 }
 
 resource "aws_iam_role_policy_attachment" "eks_node_policy_attachment_worker" {
